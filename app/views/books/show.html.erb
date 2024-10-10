@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'books/book', book: @book, user: @book.user %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <%= image_tag @book.user.get_profile_image(100, 100), class: "img-fluid" %>
+                <br>
+                <%= link_to @book.user.name, user_path(@book.user) %> 
+              </td>
+              
+              <td>
+                <p><%= link_to @book.title, book_path(@book) %></p>
+              </td>
+              
+              <td>
+                <p class="mb-0"><%= @book.body %></p>
+              </td>
+              
+              <td>
+                <% if @book.user == current_user %>
+                  <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-success" %> <!-- 右側のマージン -->
+                  <span>&nbsp;</span> <!-- 空白 -->
+                  <%= link_to 'Destroy', book_path(@book), class: "btn btn-danger", method: :delete, data: { confirm: "本当に消しますか?" } %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookers2App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script src="https://kit.fontawesome.com/f89bfc7ad1.js" crossorigin="anonymous"></script>
+    <!-- BootstrapのCSSファイル -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+        .custom-button {
+            border: 2px solid #787878; /* 枠線の色と太さ */
+            color: #787878; /* テキストの色 */
+            background-color: transparent; /* 背景色を透明に */
+        }
+        .custom-button i {
+            margin-right: 5px; /* アイコンとテキストの間に余白を追加 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">Bookers</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <% if user_signed_in? %>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-house" style="color: #ffffff;"></i> Home'), user_path(current_user.id), class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-users" style="color: #ffffff;"></i> Users'), users_path, class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-book-open" style="color: #ffffff;"></i> Books'), books_path, class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i> Log out'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
+                            </li>
+                        <% else %>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-house" style="color: #ffffff;"></i> Home'), root_path, class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-link" style="color: #ffffff;"></i> About'), about_path, class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-user-plus" style="color: #ffffff;"></i> Sign up'), new_user_registration_path, class: 'nav-link' %>
+                            </li>
+                            <li class="nav-item">
+                                <%= link_to raw('<i class="fa-solid fa-right-to-bracket" style="color: #ffffff;"></i> Log in'), new_user_session_path, class: 'nav-link' %>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- フラッシュメッセージ -->
+        <% if flash[:notice] %>
+            <div class="alert alert-success">
+                <%= flash[:notice] %>
+            </div>
+        <% elsif flash[:alert] %>
+            <div class="alert alert-danger">
+                <%= flash[:alert] %>
+            </div>
+        <% end %>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="container my-4">
+        <%= yield %>
+    </main>
+
+    <!-- フッター -->
+    <footer class="text-center">
+        <p>CopyRight Infratop.inc</p>
+    </footer>
+
+    <!-- BootstrapのJSと依存関係の追加 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

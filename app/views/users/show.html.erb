@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <!-- 左側: renderされた本の部分 (1) -->
+    <div class="col-md-3">
+      <%= render 'books/book', book: @book, user: @user %>
+    </div>
+
+    <!-- 右側: 表形式のBooks (2) -->
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+
+      <!-- 表のコンテナ -->
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Title</th>
+              <th scope="col">Opinion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @books.each do |book| %>
+              <tr>
+                <!-- プロフィール画像を表示 -->
+                <td>
+                  <%= link_to user_path(@user.id) do %>
+                    <%= image_tag book.user.get_profile_image(100, 100) %>
+                  <% end %>
+                </td>
+
+                <!-- 本のタイトルを表示 -->
+                <td>
+                  <%= link_to book.title, book_path(book.id) %>
+                </td>
+
+                <!-- 本の意見を表示 -->
+                <td>
+                  <%= book.body %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/f89bfc7ad1.js" crossorigin="anonymous"></script>

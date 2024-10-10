@@ -1,0 +1,26 @@
+<h2>User info</h2>
+
+<% if @user.errors.any? %>
+  <div>
+    <%= @user.errors.count %> errors prohibited this user from being saved:
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= form_with model: @user, local: true, method: :patch do |f| %>
+  <label for="inputName">Name</label><br>
+  <%= f.text_field :name, autofocus: true, id:"inputName"%><br>
+
+  <label for="inputImage">Image</label><br>
+  <%= f.file_field :profile_image, placeholder: "Image", accept: "image/*" %><br>  
+
+  <label for="inputIntroduction">Introduction</label><br>
+  <%= f.text_area :introduction, id:"inputIntroduction" %><br>
+
+  <%= f.submit "Update User" %>
+<% end %>

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'books/book', book: @book, user: @user %>
+    </div>
+    
+    
+<div class="col-md-8 offset-md-1">
+<h2>Users</h2>
+
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">image</th>
+        <th scope="col">name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <!-- プロフィール画像を表示 -->
+          <td>
+            <%= image_tag user.get_profile_image(100, 100), class: "img-fluid" if user.profile_image.attached? %>
+          </td>
+
+          <!-- ユーザー名を表示 -->
+          <td>
+            <p class="mb-0"><%= user.name %></p>
+          </td>
+
+          <!-- 「Show」リンクを表示 -->
+          <td>
+            <%= link_to 'Show', user_path(user)%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/f89bfc7ad1.js" crossorigin="anonymous"></script>
+
